@@ -21,6 +21,26 @@ int list_type;
     printf( "\\section{%s}", yytext+4 );
 }
 
+"<h2>"[^<]*"</h2>" {
+    /**************************************************************************
+     * Matched an HTML H2 header so print it out as a LateX section title.
+     * The beginning and ending tags need to be stripped off before the
+     * title can be formatted in LateX.
+     *************************************************************************/
+    yytext[yyleng-5] = 0;
+    printf( "\\subsection{%s}", yytext+4 );
+}
+
+"<h3>"[^<]*"</h3>" {
+    /**************************************************************************
+     * Matched an HTML H3 header so print it out as a LateX section title.
+     * The beginning and ending tags need to be stripped off before the
+     * title can be formatted in LateX.
+     *************************************************************************/
+    yytext[yyleng-5] = 0;
+    printf( "\\subsubsection{%s}", yytext+4 );
+}
+
 "<!--" {
     /**************************************************************************
      * Matched an HTML comment so print it out as a LateX comment. The
@@ -79,6 +99,72 @@ int list_type;
      *************************************************************************/
     printf( "%s", yytext );
 }
+
+"<pre>"[^<]*"</pre>" {
+	
+	yytext[yyleng-6] = 0;
+	printf( "\\verbatim{%s}", yytext+5 );
+
+}
+
+"<small>"[^<]*"</small>" {
+	
+	yytext[yyleng-8] = 0;
+	printf( "{\\scriptsize %s}", yytext+7 );
+
+}
+
+"<big>"[^<]*"</big>" {
+	
+	yytext[yyleng-6] = 0;
+	printf( "{\\Large %s}", yytext+5 );
+
+}
+
+"<b>"[^<]*"</b>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textbf{%s}", yytext+3 );
+
+}
+
+"<strong>"[^<]*"</strong>" {
+
+	yytext[yyleng-9] = 0;
+	printf( "\\textmd{%s}", yytext+8 );
+	
+}
+
+"<i>"[^<]*"</i>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textit{%s}", yytext+3 );
+
+}
+
+"<em>"[^<]*"</em>" {
+
+	yytext[yyleng-5] = 0;
+	printf( "\\emph{%s}", yytext+4 );
+
+}
+
+"<sup>"[^<]*"</sup>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsuperscript{%s}", yytext+5 );
+
+}
+
+"<sub>"[^<]*"</sub>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsubscript{%s}", yytext+5 );
+
+}
+
+
+
 
 %%
 
