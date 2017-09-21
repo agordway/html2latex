@@ -163,11 +163,10 @@ int list_type;
 
 }
 
+"<ol>" {
 /*************************************
 *  Orderd Lists
 *************************************/
-
-"<ol>" {
 
     printf( "\\begin{enumerate}\n" );
     BEGIN OL;
@@ -181,74 +180,73 @@ int list_type;
 
 }
 
-<LI>"<pre>"[^<]*"</pre>" {
+<OL>"<pre>"[^<]*"</pre>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\verbatim{%s}", yytext+5 );
 
 }
 
-<LI>"<small>"[^<]*"</small>" {
+<OL>"<small>"[^<]*"</small>" {
 
 	yytext[yyleng-8] = 0;
 	printf( "{\\scriptsize %s}", yytext+7 );
 
 }
 
-<LI>"<big>"[^<]*"</big>" {
+<OL>"<big>"[^<]*"</big>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "{\\Large %s}", yytext+5 );
 
 }
 
-<LI>"<b>"[^<]*"</b>" {
+<OL>"<b>"[^<]*"</b>" {
 
 	yytext[yyleng-4] = 0;
 	printf( "\\textbf{%s}", yytext+3 );
 
 }
 
-<LI>"<strong>"[^<]*"</strong>" {
+<OL>"<strong>"[^<]*"</strong>" {
 
 	yytext[yyleng-9] = 0;
 	printf( "\\textmd{%s}", yytext+8 );
 
 }
 
-<LI>"<i>"[^<]*"</i>" {
+<OL>"<i>"[^<]*"</i>" {
 
 	yytext[yyleng-4] = 0;
 	printf( "\\textit{%s}", yytext+3 );
 
 }
 
-<LI>"<em>"[^<]*"</em>" {
+<OL>"<em>"[^<]*"</em>" {
 
 	yytext[yyleng-5] = 0;
 	printf( "\\emph{%s}", yytext+4 );
 
 }
 
-<LI>"<sup>"[^<]*"</sup>" {
+<OL>"<sup>"[^<]*"</sup>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\textsuperscript{%s}", yytext+5 );
 
 }
 
-<LI>"<sub>"[^<]*"</sub>" {
+<OL>"<sub>"[^<]*"</sub>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\textsubscript{%s}", yytext+5 );
 
 }
 
+"<ul>" {
 /**************************************
 *  UNOrderd Lists
 **************************************/
-
-"<ul>" {
 
     printf( "\\begin{itemized}\n" );
     BEGIN UL;
@@ -262,137 +260,135 @@ int list_type;
 
 }
 
-<LI>"<pre>"[^<]*"</pre>" {
+<UL>"<pre>"[^<]*"</pre>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\verbatim{%s}", yytext+5 );
 
 }
 
-<LI>"<small>"[^<]*"</small>" {
+<UL>"<small>"[^<]*"</small>" {
 
 	yytext[yyleng-8] = 0;
 	printf( "{\\scriptsize %s}", yytext+7 );
 
 }
 
-<LI>"<big>"[^<]*"</big>" {
+<UL>"<big>"[^<]*"</big>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "{\\Large %s}", yytext+5 );
 
 }
 
-<LI>"<b>"[^<]*"</b>" {
+<UL>"<b>"[^<]*"</b>" {
 
 	yytext[yyleng-4] = 0;
 	printf( "\\textbf{%s}", yytext+3 );
 
 }
 
-<LI>"<strong>"[^<]*"</strong>" {
+<UL>"<strong>"[^<]*"</strong>" {
 
 	yytext[yyleng-9] = 0;
 	printf( "\\textmd{%s}", yytext+8 );
 
 }
 
-<LI>"<i>"[^<]*"</i>" {
+<UL>"<i>"[^<]*"</i>" {
 
 	yytext[yyleng-4] = 0;
 	printf( "\\textit{%s}", yytext+3 );
 
 }
 
-<LI>"<em>"[^<]*"</em>" {
+<UL>"<em>"[^<]*"</em>" {
 
 	yytext[yyleng-5] = 0;
 	printf( "\\emph{%s}", yytext+4 );
 
 }
 
-<LI>"<sup>"[^<]*"</sup>" {
+<UL>"<sup>"[^<]*"</sup>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\textsuperscript{%s}", yytext+5 );
 
 }
 
-<LI>"<sub>"[^<]*"</sub>" {
+<UL>"<sub>"[^<]*"</sub>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\textsubscript{%s}", yytext+5 );
 
 }
 
+"<p>" {
 /**************************************
 *  Paragraphs
 **************************************/
-
-"<p>" {
-
     printf( "\\begin{i}\n" );
-    BEGIN PAR;
+    BEGIN PARA;
 
 }
 
-<PAR>"<pre>"[^<]*"</pre>" {
+<PARA>"<pre>"[^<]*"</pre>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\verbatim{%s}", yytext+5 );
 
 }
 
-<PAR>"<small>"[^<]*"</small>" {
+<PARA>"<small>"[^<]*"</small>" {
 
 	yytext[yyleng-8] = 0;
 	printf( "{\\scriptsize %s}", yytext+7 );
 
 }
 
-<PAR>"<big>"[^<]*"</big>" {
+<PARA>"<big>"[^<]*"</big>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "{\\Large %s}", yytext+5 );
 
 }
 
-<PAR>"<b>"[^<]*"</b>" {
+<PARA>"<b>"[^<]*"</b>" {
 
 	yytext[yyleng-4] = 0;
 	printf( "\\textbf{%s}", yytext+3 );
 
 }
 
-<PAR>"<strong>"[^<]*"</strong>" {
+<PARA>"<strong>"[^<]*"</strong>" {
 
 	yytext[yyleng-9] = 0;
 	printf( "\\textmd{%s}", yytext+8 );
 
 }
 
-<PAR>"<i>"[^<]*"</i>" {
+<PARA>"<i>"[^<]*"</i>" {
 
 	yytext[yyleng-4] = 0;
 	printf( "\\textit{%s}", yytext+3 );
 
 }
 
-<PAR>"<em>"[^<]*"</em>" {
+<PARA>"<em>"[^<]*"</em>" {
 
 	yytext[yyleng-5] = 0;
 	printf( "\\emph{%s}", yytext+4 );
 
 }
 
-<PAR>"<sup>"[^<]*"</sup>" {
+<PARA>"<sup>"[^<]*"</sup>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\textsuperscript{%s}", yytext+5 );
 
 }
 
-<PAR>"<sub>"[^<]*"</sub>" {
+<PARA>"<sub>"[^<]*"</sub>" {
 
 	yytext[yyleng-6] = 0;
 	printf( "\\textsubscript{%s}", yytext+5 );
