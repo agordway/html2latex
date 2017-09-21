@@ -165,11 +165,17 @@ int list_type;
 
 "<ol>" {
 /*************************************
-*  Orderd Lists
+*  Ordered Lists
 *************************************/
 
     printf( "\\begin{enumerate}\n" );
     BEGIN OL;
+
+}
+
+<OL>. {
+
+    printf( "%s", yytext );
 
 }
 
@@ -178,6 +184,11 @@ int list_type;
     printf( "\\item" );
     BEGIN LI;
 
+}
+
+<OL>"</ol>" {
+    printf("\\end{enumerate}\n");
+    BEGIN 0;
 }
 
 <OL>"<pre>"[^<]*"</pre>" {
@@ -253,11 +264,22 @@ int list_type;
 
 }
 
+<UL>. {
+
+    printf( "%s", yytext );
+
+}
+
 <UL>"<li>" {
 
     printf( "\\item" );
     BEGIN LI;
 
+}
+
+<UL>"</ol>" {
+    printf("\\end{itemized}\n");
+    BEGIN 0;
 }
 
 <UL>"<pre>"[^<]*"</pre>" {
