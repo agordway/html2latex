@@ -101,21 +101,21 @@ int list_type;
 }
 
 "<pre>"[^<]*"</pre>" {
-	
+
 	yytext[yyleng-6] = 0;
 	printf( "\\verbatim{%s}", yytext+5 );
 
 }
 
 "<small>"[^<]*"</small>" {
-	
+
 	yytext[yyleng-8] = 0;
 	printf( "{\\scriptsize %s}", yytext+7 );
 
 }
 
 "<big>"[^<]*"</big>" {
-	
+
 	yytext[yyleng-6] = 0;
 	printf( "{\\Large %s}", yytext+5 );
 
@@ -132,7 +132,7 @@ int list_type;
 
 	yytext[yyleng-9] = 0;
 	printf( "\\textmd{%s}", yytext+8 );
-	
+
 }
 
 "<i>"[^<]*"</i>" {
@@ -163,7 +163,241 @@ int list_type;
 
 }
 
+/*************************************
+*  Orderd Lists
+*************************************/
 
+"<ol>" {
+
+    printf( "\\begin{enumerate}\n" );
+    BEGIN OL;
+
+}
+
+<OL>"<li>" {
+
+    printf( "\\item" );
+    BEGIN LI;
+
+}
+
+<LI>"<pre>"[^<]*"</pre>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\verbatim{%s}", yytext+5 );
+
+}
+
+<LI>"<small>"[^<]*"</small>" {
+
+	yytext[yyleng-8] = 0;
+	printf( "{\\scriptsize %s}", yytext+7 );
+
+}
+
+<LI>"<big>"[^<]*"</big>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "{\\Large %s}", yytext+5 );
+
+}
+
+<LI>"<b>"[^<]*"</b>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textbf{%s}", yytext+3 );
+
+}
+
+<LI>"<strong>"[^<]*"</strong>" {
+
+	yytext[yyleng-9] = 0;
+	printf( "\\textmd{%s}", yytext+8 );
+
+}
+
+<LI>"<i>"[^<]*"</i>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textit{%s}", yytext+3 );
+
+}
+
+<LI>"<em>"[^<]*"</em>" {
+
+	yytext[yyleng-5] = 0;
+	printf( "\\emph{%s}", yytext+4 );
+
+}
+
+<LI>"<sup>"[^<]*"</sup>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsuperscript{%s}", yytext+5 );
+
+}
+
+<LI>"<sub>"[^<]*"</sub>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsubscript{%s}", yytext+5 );
+
+}
+
+/**************************************
+*  UNOrderd Lists
+**************************************/
+
+"<ul>" {
+
+    printf( "\\begin{itemized}\n" );
+    BEGIN UL;
+
+}
+
+<UL>"<li>" {
+
+    printf( "\\item" );
+    BEGIN LI;
+
+}
+
+<LI>"<pre>"[^<]*"</pre>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\verbatim{%s}", yytext+5 );
+
+}
+
+<LI>"<small>"[^<]*"</small>" {
+
+	yytext[yyleng-8] = 0;
+	printf( "{\\scriptsize %s}", yytext+7 );
+
+}
+
+<LI>"<big>"[^<]*"</big>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "{\\Large %s}", yytext+5 );
+
+}
+
+<LI>"<b>"[^<]*"</b>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textbf{%s}", yytext+3 );
+
+}
+
+<LI>"<strong>"[^<]*"</strong>" {
+
+	yytext[yyleng-9] = 0;
+	printf( "\\textmd{%s}", yytext+8 );
+
+}
+
+<LI>"<i>"[^<]*"</i>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textit{%s}", yytext+3 );
+
+}
+
+<LI>"<em>"[^<]*"</em>" {
+
+	yytext[yyleng-5] = 0;
+	printf( "\\emph{%s}", yytext+4 );
+
+}
+
+<LI>"<sup>"[^<]*"</sup>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsuperscript{%s}", yytext+5 );
+
+}
+
+<LI>"<sub>"[^<]*"</sub>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsubscript{%s}", yytext+5 );
+
+}
+
+/**************************************
+*  Paragraphs
+**************************************/
+
+"<p>" {
+
+    printf( "\\begin{i}\n" );
+    BEGIN PAR;
+
+}
+
+<PAR>"<pre>"[^<]*"</pre>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\verbatim{%s}", yytext+5 );
+
+}
+
+<PAR>"<small>"[^<]*"</small>" {
+
+	yytext[yyleng-8] = 0;
+	printf( "{\\scriptsize %s}", yytext+7 );
+
+}
+
+<PAR>"<big>"[^<]*"</big>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "{\\Large %s}", yytext+5 );
+
+}
+
+<PAR>"<b>"[^<]*"</b>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textbf{%s}", yytext+3 );
+
+}
+
+<PAR>"<strong>"[^<]*"</strong>" {
+
+	yytext[yyleng-9] = 0;
+	printf( "\\textmd{%s}", yytext+8 );
+
+}
+
+<PAR>"<i>"[^<]*"</i>" {
+
+	yytext[yyleng-4] = 0;
+	printf( "\\textit{%s}", yytext+3 );
+
+}
+
+<PAR>"<em>"[^<]*"</em>" {
+
+	yytext[yyleng-5] = 0;
+	printf( "\\emph{%s}", yytext+4 );
+
+}
+
+<PAR>"<sup>"[^<]*"</sup>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsuperscript{%s}", yytext+5 );
+
+}
+
+<PAR>"<sub>"[^<]*"</sub>" {
+
+	yytext[yyleng-6] = 0;
+	printf( "\\textsubscript{%s}", yytext+5 );
+
+}
 
 
 %%
