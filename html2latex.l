@@ -417,6 +417,11 @@ int list_type;
 
 }
 
+<LI>"</li>" {
+	printf("\n");
+	BEGIN 0;
+}
+
 
 %%
 
