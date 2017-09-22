@@ -100,6 +100,20 @@ int list_type;
 	printf("%s", yytext);
 }
 
+"<pre>" {
+	printf("\\begin{verbatim}");
+	BEGIN PRE;
+}
+
+<PRE>"[^<]*" {
+	printf("%s", yytext);
+}
+
+<PRE>"</pre>" {
+	printf("\\end{verbatim}\n");
+	BEGIN 0;
+}
+
 "<p>"  {
 	BEGIN PARA;
 }
@@ -115,60 +129,6 @@ int list_type;
 
 <PARA>[^<]* {
 	printf("%s", yytext);
-}
-
-<PARA>"<small>"[^<]*"</small>" {
-	yytext[yyleng-8] = 0;
-	printf("{\\scriptsize %s}", yytext+7);
-}
-
-<PARA>"<big>"[^<]*"</big>" {
-	yytext[yyleng-6] = 0;
-	printf("{\\Large %s}", yytext+5);
-}
-
-<PARA>"<i>"[^<]*"</i>" {
-	yytext[yyleng-4] = 0;
-	printf("\\textit{%s}", yytext+3);
-}
-
-<PARA>"<b>"[^<]*"</b>" {
-	yytext[yyleng-4] = 0;
-	printf("\\textbf{%s}", yytext+3);
-}
-
-<PARA>"<strong>"[^<]*"</strong>" {
-	yytext[yyleng-9] = 0;
-	printf("\\textmd{%s}", yytext+8);
-}
-
-<PARA>"<em>"[^<]*"</em>" {
-	yytext[yyleng-5] = 0;
-	printf("\\emph{%s}", yytext+4);
-}
-
-<PARA>"<sup>"[^<]*"</sup>" {
-	yytext[yyleng-6] = 0;
-	printf("\\textsuperscript{%s}", yytext+5);
-}
-
-<PARA>"<sub>"[^<]*"</sub>" {
-	yytext[yyleng-6] = 0;
-	printf("\\textsubscript{%s}", yytext+5);
-}
-
-"<pre>" {
-	printf("\\begin{verbatim}");
-	BEGIN PRE;
-}
-
-<PRE>"[^<]*" {
-	printf("%s", yytext);
-}
-
-<PRE>"</pre>" {
-	printf("\\end{verbatim}\n");
-	BEGIN 0;
 }
 
 "<ol>" {
@@ -201,7 +161,45 @@ int list_type;
 	BEGIN 0;
 }
 
+<PARA>"<small>"[^<]*"</small>" {
+	yytext[yyleng-8] = 0;
+	printf("{\\scriptsize %s}", yytext+7);
+}
 
+<PARA>"<big>"[^<]*"</big>" {
+	yytext[yyleng-6] = 0;
+	printf("{\\Large %s}", yytext+5);
+}
+
+<PARA>"<b>"[^<]*"</b>" {
+	yytext[yyleng-4] = 0;
+	printf("\\textbf{%s}", yytext+3);
+}
+
+<PARA>"<i>"[^<]*"</i>" {
+	yytext[yyleng-4] = 0;
+	printf("\\textit{%s}", yytext+3);
+}
+
+<PARA>"<strong>"[^<]*"</strong>" {
+	yytext[yyleng-9] = 0;
+	printf("\\textmd{%s}", yytext+8);
+}
+
+<PARA>"<em>"[^<]*"</em>" {
+	yytext[yyleng-5] = 0;
+	printf("\\emph{%s}", yytext+4);
+}
+
+<PARA>"<sup>"[^<]*"</sup>" {
+	yytext[yyleng-6] = 0;
+	printf("\\textsuperscript{%s}", yytext+5);
+}
+
+<PARA>"<sub>"[^<]*"</sub>" {
+	yytext[yyleng-6] = 0;
+	printf("\\textsubscript{%s}", yytext+5);
+}
 
 %%
 
