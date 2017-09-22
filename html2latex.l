@@ -136,9 +136,19 @@ int list_type;
 	BEGIN LI;
 }
 
+<LI>"</ol>" {
+	printf("\\end{enumerate}\n");
+	BEGIN 0;
+}
+
 "<ul>" {
 	printf("\\begin{itemize}");
 	BEGIN LI;
+}
+
+<LI>"</ul>" {
+	printf("\\end{itemize}\n");
+	BEGIN 0;
 }
 
 <LI>"<li>" {
@@ -149,16 +159,6 @@ int list_type;
 <PARA>"</li>" {
 	printf("\n");
 	BEGIN LI;
-}
-
-<LI>"</ul>" {
-	printf("\\end{itemize}\n");
-	BEGIN 0;
-}
-
-<LI>"</ol>" {
-	printf("\\end{enumerate}\n");
-	BEGIN 0;
 }
 
 <PARA>"<small>"[^<]*"</small>" {
